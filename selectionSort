@@ -1,0 +1,42 @@
+import java.util.*;
+import java.time.*;
+class Main {
+  static int[] fillArray(int x) {
+    Random r = new Random();
+    int[] a = new int[x];
+    for(int i = 0; i < x; i++) {
+      a[i] = r.nextInt(999);
+    }
+    return a;
+  }
+   static Instant selectionSort(int[] x) {
+     for(int i = 0; i < x.length - 1; i++) {
+       int key = x[i];
+       int index = i;
+       boolean swap = false;
+       for(int j = i + 1; j < x.length; j++) {
+         if(x[j] < key){
+           key = x[j];
+           index = j;
+           swap = true;
+         }
+       }
+       if (swap) {
+         x[i] = x[index] + x[i];
+         x[index] = x[i] - x[index];
+         x[i] = x[i] - x[index];
+       }
+     }
+     return Instant.now();
+   }
+  public static void main(String[] args) {
+    int[] x = fillArray(40000);
+    System.out.println(Duration.between(Instant.now(),selectionSort(x)));
+    int[] y = fillArray(80000);
+    System.out.println(Duration.between(Instant.now(),selectionSort(y)));
+    int[] z = fillArray(160000);
+    System.out.println(Duration.between(Instant.now(),selectionSort(z)));
+    int[] a = fillArray(320000);
+    System.out.println(Duration.between(Instant.now(),selectionSort(a)));
+  }
+}
